@@ -7,6 +7,10 @@
 " Place in either ~/.vim/plugin/repeat.vim (to load at start up) or
 " ~/.vim/autoload/repeat.vim (to load automatically as needed).
 "
+" License:
+" Copyright (c) Tim Pope.  Distributed under the same terms as Vim itself.
+" See :help license
+"
 " Developers:
 " Basic usage is as follows:
 "
