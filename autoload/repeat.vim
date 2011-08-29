@@ -1,7 +1,7 @@
 " repeat.vim - Let the repeat command repeat plugin maps
 " Maintainer:   Tim Pope
 " Version:      1.0
-" GetLatestVimScripts: 2136 1 :AutoInstall: rake.vim
+" GetLatestVimScripts: 2136 1 :AutoInstall: repeat.vim
 
 " Installation:
 " Place in either ~/.vim/plugin/repeat.vim (to load at start up) or
