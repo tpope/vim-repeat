@@ -29,6 +29,17 @@
 "
 " Make sure to call the repeat#set function _after_ making changes to the
 " file.
+" For mappings that use a register and want the same register used on
+" repetition, use:
+"   silent! call repeat#setreg("\<Plug>MappingToRepeatCommand", v:register)
+"
+" This function can (and probably needs to be) called before making changes to
+" the file (as those typically clear v:register).  Therefore, the call sequence
+" in your mapping will look like this:
+"   nnoremap <silent> <Plug>MyMap
+"   \   :<C-U>silent! call repeat#setreg("\<lt>Plug>MyMap", v:register)<Bar>
+"   \   call <SID>MyFunction(v:register, ...)<Bar>
+"   \   silent! call repeat#set("\<lt>Plug>MyMap")<CR>
 
 if exists("g:loaded_repeat") || &cp || v:version < 700
     finish
@@ -36,6 +47,7 @@ endif
 let g:loaded_repeat = 1
 
 let g:repeat_tick = -1
+let g:repeat_reg = ['', '']
 
 function! repeat#set(sequence,...)
     call setline(line('.'), getline('.'))
@@ -44,12 +56,28 @@ function! repeat#set(sequence,...)
     let g:repeat_tick = b:changedtick
 endfunction
 
+function! repeat#setreg(sequence,register)
+    let g:repeat_reg = [a:sequence, a:register]
+endfunction
+
 function! s:repeat(count)
     if g:repeat_tick == b:changedtick
+        let r = ''
+        if g:repeat_reg[0] ==# g:repeat_sequence && !empty(g:repeat_reg[1])
+            if g:repeat_reg[1] ==# '='
+                " This causes a re-evaluation of the expression on repeat, which
+                " is what we want.
+                let r = '"=' . getreg('=', 1) . "\<CR>"
+            else
+                let r = '"' . g:repeat_reg[1]
+            endif
+        endif
+
         let c = g:repeat_count
         let s = g:repeat_sequence
         let cnt = c == -1 ? "" : (a:count ? a:count : (c ? c : ''))
-        call feedkeys(cnt . s)
+        call feedkeys(r . cnt, 'n')
+        call feedkeys(s)
     else
         call feedkeys((a:count ? a:count : '') . '.', 'n')
     endif
