@@ -68,7 +68,7 @@ function! repeat#setreg(sequence,register)
     let g:repeat_reg = [a:sequence, a:register]
 endfunction
 
-function! s:repeat(count)
+function! repeat#run(count)
     if g:repeat_tick == b:changedtick
         let r = ''
         if g:repeat_reg[0] ==# g:repeat_sequence && !empty(g:repeat_reg[1])
@@ -84,10 +84,9 @@ function! s:repeat(count)
         let c = g:repeat_count
         let s = g:repeat_sequence
         let cnt = c == -1 ? "" : (a:count ? a:count : (c ? c : ''))
-        call feedkeys(r . cnt, 'n')
-        call feedkeys(s)
+        exe 'norm ' . r . cnt . s
     else
-        call feedkeys((a:count ? a:count : '') . '.', 'n')
+        exe 'norm! '.(a:count ? a:count : '') . '.'
     endif
 endfunction
 
@@ -99,7 +98,7 @@ function! s:wrap(command,count)
     endif
 endfunction
 
-nnoremap <silent> .     :<C-U>call <SID>repeat(v:count)<CR>
+nnoremap <silent> .     :<C-U>call repeat#run(v:count)<CR>
 nnoremap <silent> u     :<C-U>call <SID>wrap('u',v:count)<CR>
 if maparg('U','n') ==# ''
     nnoremap <silent> U     :<C-U>call <SID>wrap('U',v:count)<CR>
