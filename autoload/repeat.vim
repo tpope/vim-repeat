@@ -84,9 +84,10 @@ function! repeat#run(count)
         let c = g:repeat_count
         let s = g:repeat_sequence
         let cnt = c == -1 ? "" : (a:count ? a:count : (c ? c : ''))
-        exe 'norm ' . r . cnt . s
+        call feedkeys(r . cnt, 'n')
+        call feedkeys(s)
     else
-        exe 'norm! '.(a:count ? a:count : '') . '.'
+        call feedkeys((a:count ? a:count : '') . '.', 'n')
     endif
 endfunction
 
