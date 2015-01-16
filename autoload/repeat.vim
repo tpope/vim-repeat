@@ -55,6 +55,7 @@ let g:repeat_reg = ['', '']
 " Special function to avoid spurious repeats in a related, naturally repeating
 " mapping when your repeatable mapping doesn't increase b:changedtick.
 function! repeat#invalidate()
+    autocmd! repeat_custom_motion
     let g:repeat_tick = -1
 endfunction
 
