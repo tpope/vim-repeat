@@ -88,10 +88,18 @@ function! repeat#run(count)
         let c = g:repeat_count
         let s = g:repeat_sequence
         let cnt = c == -1 ? "" : (a:count ? a:count : (c ? c : ''))
-        call feedkeys(r . cnt, 'n')
-        call feedkeys(s)
+        if (v:version > 703 || (v:version == 703 && has('patch100')))
+            exe 'norm ' . r . cnt . s
+        elseif
+            call feedkeys(r . cnt, 'n')
+            call feedkeys(s)
+        endif
     else
-        call feedkeys((a:count ? a:count : '') . '.', 'n')
+        if (v:version > 703 || (v:version == 703 && has('patch100')))
+            exe 'norm! '.(a:count ? a:count : '') . '.'
+        elseif
+            call feedkeys((a:count ? a:count : '') . '.', 'n')
+        endif
     endif
 endfunction
 
