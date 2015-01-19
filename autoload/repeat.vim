@@ -91,14 +91,14 @@ function! repeat#run(count)
         let cnt = c == -1 ? "" : (a:count ? a:count : (c ? c : ''))
         if (v:version > 703 || (v:version == 703 && has('patch100')))
             exe 'norm ' . r . cnt . s
-        elseif
+        else
             call feedkeys(r . cnt, 'n')
             call feedkeys(s)
         endif
     else
         if (v:version > 703 || (v:version == 703 && has('patch100')))
             exe 'norm! '.(a:count ? a:count : '') . '.'
-        elseif
+        else
             call feedkeys((a:count ? a:count : '') . '.', 'n')
         endif
     endif
