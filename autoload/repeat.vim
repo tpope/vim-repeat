@@ -89,17 +89,17 @@ function! repeat#run(count)
         let c = g:repeat_count
         let s = g:repeat_sequence
         let cnt = c == -1 ? "" : (a:count ? a:count : (c ? c : ''))
-        if (v:version > 703 || (v:version == 703 && has('patch100')))
+        if ((v:version == 703 && has('patch100')) || (v:version == 704 && !has('patch601')))
             exe 'norm ' . r . cnt . s
         else
-            call feedkeys(r . cnt, 'n')
-            call feedkeys(s)
+            call feedkeys(r . cnt, 'ni')
+            call feedkeys(s, 'i')
         endif
     else
-        if (v:version > 703 || (v:version == 703 && has('patch100')))
+        if ((v:version == 703 && has('patch100')) || (v:version == 704 && !has('patch601')))
             exe 'norm! '.(a:count ? a:count : '') . '.'
         else
-            call feedkeys((a:count ? a:count : '') . '.', 'n')
+            call feedkeys((a:count ? a:count : '') . '.', 'ni')
         endif
     endif
 endfunction
