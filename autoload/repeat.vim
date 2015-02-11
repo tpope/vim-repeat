@@ -52,6 +52,23 @@ let g:loaded_repeat = 1
 let g:repeat_tick = -1
 let g:repeat_reg = ['', '']
 
+if !exists('g:repeat_map_dot')
+    let g:repeat_map_dot = '.'
+endif
+if !exists('g:repeat_map_u')
+    let g:repeat_map_u = 'u'
+endif
+if !exists('g:repeat_map_U')
+    if maparg('U','n') ==# ''
+        let g:repeat_map_U = 'U'
+    else
+        let g:repeat_map_U = ''
+    endif
+endif
+if !exists('g:repeat_map_C_R')
+    let g:repeat_map_C_R = '<C-R>'
+endif
+
 " Special function to avoid spurious repeats in a related, naturally repeating
 " mapping when your repeatable mapping doesn't increase b:changedtick.
 function! repeat#invalidate()
@@ -112,12 +129,18 @@ function! repeat#wrap(command,count)
     endif
 endfunction
 
-nnoremap <silent> .     :<C-U>call repeat#run(v:count)<CR>
-nnoremap <silent> u     :<C-U>call repeat#wrap('u',v:count)<CR>
-if maparg('U','n') ==# ''
-    nnoremap <silent> U     :<C-U>call repeat#wrap('U',v:count)<CR>
+if len(g:repeat_map_dot)
+    exe 'nnoremap <silent> '.g:repeat_map_dot.' :<C-U>call repeat#run(v:count)<CR>'
 endif
-nnoremap <silent> <C-R> :<C-U>call repeat#wrap("\<Lt>C-R>",v:count)<CR>
+if len(g:repeat_map_u)
+    exe 'nnoremap <silent> '.g:repeat_map_u.'   :<C-U>call repeat#wrap("u",v:count)<CR>'
+endif
+if len(g:repeat_map_U)
+    exe 'nnoremap <silent> '.g:repeat_map_U.'   :<C-U>call repeat#wrap("U",v:count)<CR>'
+endif
+if len(g:repeat_map_u)
+    exe 'nnoremap <silent> '.g:repeat_map_C_R.' :<C-U>call repeat#wrap("\<Lt>C-R>",v:count)<CR>'
+endif
 
 augroup repeatPlugin
     autocmd!
