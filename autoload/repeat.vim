@@ -117,7 +117,9 @@ nnoremap <silent> u     :<C-U>call repeat#wrap('u',v:count)<CR>
 if maparg('U','n') ==# ''
     nnoremap <silent> U     :<C-U>call repeat#wrap('U',v:count)<CR>
 endif
-nnoremap <silent> <C-R> :<C-U>call repeat#wrap("\<Lt>C-R>",v:count)<CR>
+let ctrlR = (maparg('<C-R>','n') == "" ?  '<C-R>' :maparg('<C-R>', 'n'))
+substitute(ctrlR,'<','\<Lt>','g')
+execute 'nnoremap <silent> <C-R> :<C-U>call repeat#wrap("'. ctrlR .'",v:count)<CR>'
 
 augroup repeatPlugin
     autocmd!
