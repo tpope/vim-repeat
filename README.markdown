@@ -31,6 +31,24 @@ then simply copy and paste:
     cd ~/.vim/bundle
     git clone git://github.com/tpope/vim-repeat.git
 
+Advanced
+---------
+
+By default, repeat.vim remaps `.`, `u`, `U`, and `<C-r>`. The latter
+three are necessary for the proper implementation of undo against
+mappings executed by repeat.vim. If you have already remapped any of
+these keys, repeat.vim still has you covered. Internally, repeat.vim
+defines the below mapping targets (the default key mapped to them is in
+parentheses):
+
+- `<Plug>(RepeatDot)` (`.`)
+- `<Plug>(RepeatUndo)` (`u`)
+- `<Plug>(RepeatUndoLine)` (`U`)
+- `<Plug>(RepeatRedo)` (`<C-r>`)
+
+If you define your own mappings to these targets before repeat.vim is
+sourced, then the corresponding default key will not be remapped.
+
 Contributing
 ------------
 
