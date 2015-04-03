@@ -92,8 +92,8 @@ function! repeat#run(count)
         if ((v:version == 703 && has('patch100')) || (v:version == 704 && !has('patch601')))
             exe 'norm ' . r . cnt . s
         else
-            call feedkeys(r . cnt, 'ni')
             call feedkeys(s, 'i')
+            call feedkeys(r . cnt, 'ni')
         endif
     else
         if ((v:version == 703 && has('patch100')) || (v:version == 704 && !has('patch601')))
