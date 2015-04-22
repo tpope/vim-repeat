@@ -74,34 +74,38 @@ function! repeat#setreg(sequence,register)
 endfunction
 
 function! repeat#run(count)
-    if g:repeat_tick == b:changedtick
-        let r = ''
-        if g:repeat_reg[0] ==# g:repeat_sequence && !empty(g:repeat_reg[1])
-            if g:repeat_reg[1] ==# '='
-                " This causes a re-evaluation of the expression on repeat, which
-                " is what we want.
-                let r = '"=' . getreg('=', 1) . "\<CR>"
+    try
+        if g:repeat_tick == b:changedtick
+            let r = ''
+            if g:repeat_reg[0] ==# g:repeat_sequence && !empty(g:repeat_reg[1])
+                if g:repeat_reg[1] ==# '='
+                    " This causes a re-evaluation of the expression on repeat, which
+                    " is what we want.
+                    let r = '"=' . getreg('=', 1) . "\<CR>"
+                else
+                    let r = '"' . g:repeat_reg[1]
+                endif
+            endif
+
+            let c = g:repeat_count
+            let s = g:repeat_sequence
+            let cnt = c == -1 ? "" : (a:count ? a:count : (c ? c : ''))
+            if ((v:version == 703 && has('patch100')) || (v:version == 704 && !has('patch601')))
+                exe 'norm ' . r . cnt . s
             else
-                let r = '"' . g:repeat_reg[1]
+                call feedkeys(s, 'i')
+                call feedkeys(r . cnt, 'ni')
+            endif
+        else
+            if ((v:version == 703 && has('patch100')) || (v:version == 704 && !has('patch601')))
+                exe 'norm! '.(a:count ? a:count : '') . '.'
+            else
+                call feedkeys((a:count ? a:count : '') . '.', 'ni')
             endif
         endif
-
-        let c = g:repeat_count
-        let s = g:repeat_sequence
-        let cnt = c == -1 ? "" : (a:count ? a:count : (c ? c : ''))
-        if ((v:version == 703 && has('patch100')) || (v:version == 704 && !has('patch601')))
-            exe 'norm ' . r . cnt . s
-        else
-            call feedkeys(s, 'i')
-            call feedkeys(r . cnt, 'ni')
-        endif
-    else
-        if ((v:version == 703 && has('patch100')) || (v:version == 704 && !has('patch601')))
-            exe 'norm! '.(a:count ? a:count : '') . '.'
-        else
-            call feedkeys((a:count ? a:count : '') . '.', 'ni')
-        endif
-    endif
+    catch /^Vim\%((\a\+)\)\=:E\%(384\|385\|486\)/
+        echohl ErrorMsg | echo substitute(v:exception, '^Vim\%((\a\+)\)\=:', '', '') | echohl None
+    endtry
 endfunction
 
 function! repeat#wrap(command,count)
