@@ -103,9 +103,10 @@ function! repeat#run(count)
                 call feedkeys((a:count ? a:count : '') . '.', 'ni')
             endif
         endif
-    catch /^Vim\%((\a\+)\)\=:E\%(384\|385\|486\)/
-        echohl ErrorMsg | echo substitute(v:exception, '^Vim\%((\a\+)\)\=:', '', '') | echohl None
+    catch /^Vim(normal):/
+        return 'echoerr v:errmsg'
     endtry
+    return ''
 endfunction
 
 function! repeat#wrap(command,count)
@@ -116,7 +117,7 @@ function! repeat#wrap(command,count)
     endif
 endfunction
 
-nnoremap <silent> <Plug>(RepeatDot)      :<C-U>call repeat#run(v:count)<CR>
+nnoremap <silent> <Plug>(RepeatDot)      :<C-U>exe repeat#run(v:count)<CR>
 nnoremap <silent> <Plug>(RepeatUndo)     :<C-U>call repeat#wrap('u',v:count)<CR>
 nnoremap <silent> <Plug>(RepeatUndoLine) :<C-U>call repeat#wrap('U',v:count)<CR>
 nnoremap <silent> <Plug>(RepeatRedo)     :<C-U>call repeat#wrap("\<Lt>C-R>",v:count)<CR>
