@@ -110,6 +110,9 @@ function! repeat#run(count)
 endfunction
 
 function! repeat#wrap(command,count)
+    if !&modifiable
+        return
+    endif
     let preserve = (g:repeat_tick == b:changedtick)
     exe 'norm! '.(a:count ? a:count : '').a:command . (&foldopen =~# 'undo\|all' ? 'zv' : '')
     if preserve
