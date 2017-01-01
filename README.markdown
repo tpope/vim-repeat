@@ -15,6 +15,7 @@ The following plugins support repeat.vim:
 * [unimpaired.vim](https://github.com/tpope/vim-unimpaired)
 * [commentary.vim](https://github.com/tpope/vim-commentary)
 * [vim-easyclip](https://github.com/svermeulen/vim-easyclip)
+* [vim-simple-todo](https://github.com/vitalk/vim-simple-todo)
 
 Adding support to a plugin is generally as simple as the following
 command at the end of your map functions.
