@@ -59,6 +59,12 @@ function! repeat#invalidate()
     let g:repeat_tick = -1
 endfunction
 
+" Special function to avoid spurious repeats in a related, naturally repeating
+" mapping when your repeatable mapping doesn't increase b:changedtick.
+function! repeat#invalidate()
+    let g:repeat_tick = -1
+endfunction
+
 function! repeat#set(sequence,...)
     let g:repeat_sequence = a:sequence
     let g:repeat_count = a:0 ? a:1 : v:count
