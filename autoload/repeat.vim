@@ -1,6 +1,6 @@
 " repeat.vim - Let the repeat command repeat plugin maps
 " Maintainer:   Tim Pope
-" Version:      1.1
+" Version:      1.2
 " GetLatestVimScripts: 2136 1 :AutoInstall: repeat.vim
 
 " Installation:
