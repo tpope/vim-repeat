@@ -10,9 +10,7 @@ The following plugins support repeat.vim:
 
 * [surround.vim](https://github.com/tpope/vim-surround)
 * [speeddating.vim](https://github.com/tpope/vim-speeddating)
-* [abolish.vim](https://github.com/tpope/vim-abolish)
 * [unimpaired.vim](https://github.com/tpope/vim-unimpaired)
-* [commentary.vim](https://github.com/tpope/vim-commentary)
 * [vim-easyclip](https://github.com/svermeulen/vim-easyclip)
 
 Adding support to a plugin is generally as simple as the following
