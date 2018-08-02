@@ -8,6 +8,7 @@ it.
 
 The following plugins support repeat.vim:
 
+* [abolish.vim](https://github.com/tpope/vim-abolish)
 * [surround.vim](https://github.com/tpope/vim-surround)
 * [speeddating.vim](https://github.com/tpope/vim-speeddating)
 * [unimpaired.vim](https://github.com/tpope/vim-unimpaired)
