@@ -92,6 +92,9 @@ function! repeat#run(count)
             let cnt = c == -1 ? "" : (a:count ? a:count : (c ? c : ''))
             if ((v:version == 703 && has('patch100')) || (v:version == 704 && !has('patch601')))
                 exe 'norm ' . r . cnt . s
+            elseif v:version <= 703
+                call feedkeys(r . cnt, 'n')
+                call feedkeys(s, '')
             else
                 call feedkeys(s, 'i')
                 call feedkeys(r . cnt, 'ni')
