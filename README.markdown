@@ -12,6 +12,7 @@ The following plugins support repeat.vim:
 * [speeddating.vim](https://github.com/tpope/vim-speeddating)
 * [unimpaired.vim](https://github.com/tpope/vim-unimpaired)
 * [vim-easyclip](https://github.com/svermeulen/vim-easyclip)
+* [vim-gitgutter](https://github.com/airblade/vim-gitgutter)
 
 Adding support to a plugin is generally as simple as the following
 command at the end of your map functions.
