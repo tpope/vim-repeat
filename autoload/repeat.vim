@@ -143,17 +143,21 @@ nnoremap <silent> <Plug>(RepeatUndo)     :<C-U>call repeat#wrap('u',v:count)<CR>
 nnoremap <silent> <Plug>(RepeatUndoLine) :<C-U>call repeat#wrap('U',v:count)<CR>
 nnoremap <silent> <Plug>(RepeatRedo)     :<C-U>call repeat#wrap("\<Lt>C-R>",v:count)<CR>
 
-if !hasmapto('<Plug>(RepeatDot)', 'n')
-    nmap . <Plug>(RepeatDot)
-endif
-if !hasmapto('<Plug>(RepeatUndo)', 'n')
-    nmap u <Plug>(RepeatUndo)
-endif
-if maparg('U','n') ==# '' && !hasmapto('<Plug>(RepeatUndoLine)', 'n')
-    nmap U <Plug>(RepeatUndoLine)
-endif
-if !hasmapto('<Plug>(RepeatRedo)', 'n')
-    nmap <C-R> <Plug>(RepeatRedo)
+let g:vim_repeat_default_mappings = get(g:, 'vim_repeat_default_mappings', 1)
+
+if g:vim_repeat_default_mappings
+    if !hasmapto('<Plug>(RepeatDot)', 'n')
+        nmap . <Plug>(RepeatDot)
+    endif
+    if !hasmapto('<Plug>(RepeatUndo)', 'n')
+        nmap u <Plug>(RepeatUndo)
+    endif
+    if maparg('U','n') ==# '' && !hasmapto('<Plug>(RepeatUndoLine)', 'n')
+        nmap U <Plug>(RepeatUndoLine)
+    endif
+    if !hasmapto('<Plug>(RepeatRedo)', 'n')
+        nmap <C-R> <Plug>(RepeatRedo)
+    endif
 endif
 
 augroup repeatPlugin
