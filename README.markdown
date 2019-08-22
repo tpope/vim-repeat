@@ -18,6 +18,30 @@ Adding support to a plugin is generally as simple as the following
 command at the end of your map functions.
 
     silent! call repeat#set("\<Plug>MyWonderfulMap", v:count)
+    
+## Example
+
+This mapping:
+
+```
+nmap cp xp
+```
+
+Has the same effect than this:
+
+```
+nmap <Plug>TransposeCharacters xp
+nmap cp <Plug>TransposeCharacters 
+```
+
+To make it repeatable do this:
+
+```
+nmap <Plug>TransposeCharacters xp
+nmap cp <Plug>TransposeCharacters 
+silent! call repeat#set("\<Plug>TransposeCharacters", v:count)
+```
+
 
 ## Installation
 
