@@ -111,7 +111,7 @@ endfunction
 
 function! repeat#wrap(command,count)
     let preserve = (g:repeat_tick == b:changedtick)
-    exe 'norm!' (a:count ? a:count : '').a:command
+    exe 'norm! '.(a:count ? a:count : '').a:command
     exe (&foldopen =~# 'undo\|all' ? 'norm! zv' : '')
     if preserve
         let g:repeat_tick = b:changedtick
