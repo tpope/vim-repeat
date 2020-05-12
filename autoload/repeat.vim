@@ -131,8 +131,7 @@ endfunction
 
 function! repeat#wrap(command,count)
     let preserve = (g:repeat_tick == b:changedtick)
-    call feedkeys((a:count ? a:count : '').a:command, 'n')
-    exe (&foldopen =~# 'undo\|all' ? 'norm! zv' : '')
+    call feedkeys((a:count ? a:count : '').a:command.(&foldopen =~# 'undo\|all' ? 'zv' : ''), 'n')
     if preserve
         let g:repeat_tick = b:changedtick
     endif
