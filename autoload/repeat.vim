@@ -134,7 +134,10 @@ function! repeat#wrap(command,count)
     call feedkeys((a:count ? a:count : '').a:command, 'n')
     exe (&foldopen =~# 'undo\|all' ? 'norm! zv' : '')
     if preserve
-        let g:repeat_tick = b:changedtick
+        augroup repeat_preserve_after_undo
+            autocmd!
+            autocmd TextChanged <buffer> let g:repeat_tick = b:changedtick | autocmd! repeat_preserve_after_undo
+        augroup END
     endif
 endfunction
 
