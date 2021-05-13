@@ -135,6 +135,9 @@ function! repeat#errmsg()
 endfunction
 
 function! repeat#wrap(command,count)
+    if !&modifiable
+        return
+    endif
     let preserve = (g:repeat_tick == b:changedtick)
     call feedkeys((a:count ? a:count : '').a:command, 'n')
     exe (&foldopen =~# 'undo\|all' ? 'norm! zv' : '')
