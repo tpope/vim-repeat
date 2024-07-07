@@ -125,16 +125,13 @@ endfunction
 
 function! repeat#wrap(command,count)
     let preserve = (g:repeat_tick == b:changedtick)
-    call feedkeys((a:count ? a:count : '').a:command, 'ntix')
-    if preserve
-        let g:repeat_tick = b:changedtick
-    endif
+    return (a:count ? a:count : '') . a:command . (preserve ? ":let g:repeat_tick = b:changedtick\r" : '')
 endfunction
 
 nnoremap <silent> <Plug>(RepeatDot)      :<C-U>if !repeat#run(v:count)<Bar>echoerr repeat#errmsg()<Bar>endif<CR>
-nnoremap <silent> <Plug>(RepeatUndo)     :<C-U>call repeat#wrap('u',v:count)<CR>
-nnoremap <silent> <Plug>(RepeatUndoLine) :<C-U>call repeat#wrap('U',v:count)<CR>
-nnoremap <silent> <Plug>(RepeatRedo)     :<C-U>call repeat#wrap("\<Lt>C-R>",v:count)<CR>
+nmap <silent><expr><script> <Plug>(RepeatUndo)     repeat#wrap('u',v:count)
+nmap <silent><expr><script> <Plug>(RepeatUndoLine) repeat#wrap('U',v:count)
+nmap <silent><expr><script> <Plug>(RepeatRedo)     repeat#wrap("\022",v:count)
 
 if !hasmapto('<Plug>(RepeatDot)', 'n')
     nmap . <Plug>(RepeatDot)
