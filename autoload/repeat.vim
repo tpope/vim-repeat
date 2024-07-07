@@ -44,7 +44,7 @@
 "   \   call <SID>MyFunction(v:register, ...)<Bar>
 "   \   silent! call repeat#set("\<lt>Plug>MyMap")<CR>
 
-if exists("g:loaded_repeat") || &cp || v:version < 700
+if exists("g:loaded_repeat") || &cp || v:version < 800
     finish
 endif
 let g:loaded_repeat = 1
@@ -108,21 +108,10 @@ function! repeat#run(count)
             let c = g:repeat_count
             let s = g:repeat_sequence
             let cnt = c == -1 ? "" : (a:count ? a:count : (c ? c : ''))
-            if ((v:version == 703 && has('patch100')) || (v:version == 704 && !has('patch601')))
-                exe 'norm ' . r . cnt . s
-            elseif v:version <= 703
-                call feedkeys(r . cnt, 'n')
-                call feedkeys(s, '')
-            else
-                call feedkeys(s, 'i')
-                call feedkeys(r . cnt, 'ni')
-            endif
+            call feedkeys(s, 'i')
+            call feedkeys(r . cnt, 'ni')
         else
-            if ((v:version == 703 && has('patch100')) || (v:version == 704 && !has('patch601')))
-                exe 'norm! '.(a:count ? a:count : '') . '.'
-            else
-                call feedkeys((a:count ? a:count : '') . '.', 'ni')
-            endif
+            call feedkeys((a:count ? a:count : '') . '.', 'ni')
         endif
     catch /^Vim(normal):/
         let s:errmsg = v:errmsg
