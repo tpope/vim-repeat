@@ -124,9 +124,9 @@ function! repeat#errmsg()
 endfunction
 
 function! repeat#wrap(command,count)
-    exe (&foldopen =~# 'undo\|all' ? 'norm! zv' : '')
-    let preserve = (g:repeat_tick == b:changedtick)
-    return (a:count ? a:count : '') . a:command . (preserve ? ":let g:repeat_tick = b:changedtick\r" : '')
+    let foldopen = &foldopen =~# 'undo\|all' ? 'zv' : ''
+    let preserve = g:repeat_tick == b:changedtick ? ":let g:repeat_tick = b:changedtick\r" : ''
+    return (a:count ? a:count : '') . a:command . preserve . foldopen
 endfunction
 
 nnoremap <silent> <Plug>(RepeatDot)      :<C-U>if !repeat#run(v:count)<Bar>echoerr repeat#errmsg()<Bar>endif<CR>
