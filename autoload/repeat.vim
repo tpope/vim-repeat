@@ -134,16 +134,16 @@ nmap <silent><expr><script> <Plug>(RepeatUndo)     repeat#wrap('u',v:count)
 nmap <silent><expr><script> <Plug>(RepeatUndoLine) repeat#wrap('U',v:count)
 nmap <silent><expr><script> <Plug>(RepeatRedo)     repeat#wrap("\022",v:count)
 
-if !hasmapto('<Plug>(RepeatDot)', 'n')
+if maparg('.','n') ==# '' && !hasmapto('<Plug>(RepeatDot)', 'n')
     nmap . <Plug>(RepeatDot)
 endif
-if !hasmapto('<Plug>(RepeatUndo)', 'n')
+if maparg('u','n') ==# '' && !hasmapto('<Plug>(RepeatUndo)', 'n')
     nmap u <Plug>(RepeatUndo)
 endif
 if maparg('U','n') ==# '' && !hasmapto('<Plug>(RepeatUndoLine)', 'n')
     nmap U <Plug>(RepeatUndoLine)
 endif
-if !hasmapto('<Plug>(RepeatRedo)', 'n')
+if maparg('<C-R>','n') ==# '' && !hasmapto('<Plug>(RepeatRedo)', 'n')
     nmap <C-R> <Plug>(RepeatRedo)
 endif
 
