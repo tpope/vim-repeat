@@ -13,6 +13,9 @@ The following plugins support repeat.vim:
 * [unimpaired.vim](https://github.com/tpope/vim-unimpaired)
 * [vim-easyclip](https://github.com/svermeulen/vim-easyclip)
 * [vim-radical](https://github.com/glts/vim-radical)
+* [vim-ReplaceWithRegister](https://github.com/inkarkat/vim-ReplaceWithRegister)
+* [vim-spellcheck](https://github.com/inkarkat/vim-SpellCheck)
+* [argtextobj.vim](https://github.com/inkarkat/argtextobj.vim)
 
 Adding support to a plugin is generally as simple as the following
 command at the end of your map functions.
