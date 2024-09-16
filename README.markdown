@@ -14,10 +14,20 @@ The following plugins support repeat.vim:
 * [vim-easyclip](https://github.com/svermeulen/vim-easyclip)
 * [vim-radical](https://github.com/glts/vim-radical)
 
-Adding support to a plugin is generally as simple as the following
+Adding support to a plugin is generally as simple as appending the following
 command at the end of your map functions.
 
     silent! call repeat#set("\<Plug>MyWonderfulMap", v:count)
+    
+For example
+
+    nnoremap <silent> <Plug>PasteBelowCursorEnd p`]
+    \:call repeat#set("\<Plug>PasteBelowCursorEnd")<CR>
+    nmap gp <Plug>PasteBelowCursorEnd
+
+Or use [Repeatable.vim](https://github.com/kreskij/Repeatable.vim)
+
+  Repeatable nnoremap gp p`]
 
 ## Installation
 
