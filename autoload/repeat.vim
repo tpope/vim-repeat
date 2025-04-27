@@ -143,7 +143,7 @@ endif
 if maparg('U','n') ==# '' && !hasmapto('<Plug>(RepeatUndoLine)', 'n')
     nmap U <Plug>(RepeatUndoLine)
 endif
-if !hasmapto('<Plug>(RepeatRedo)', 'n')
+if maparg('<C-R>','n') ==# '' && !hasmapto('<Plug>(RepeatRedo)', 'n')
     nmap <C-R> <Plug>(RepeatRedo)
 endif
 
